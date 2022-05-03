@@ -83,4 +83,26 @@ class ProductJdbcRepositoryTest {
         assertThat(product.isEmpty(), is(false));
     }
 
+    @Test
+    @Order(5)
+    @DisplayName("상풍을 업데이트 할 수 있다.")
+    void testUpdateProduct() {
+        newProduct.setProductName("update");
+        repository.update(newProduct);
+
+        var product = repository.findById(newProduct.getProductId());
+        assertThat(product.get(), samePropertyValuesAs(newProduct));
+    }
+
+    @Test
+    @Order(6)
+    @DisplayName("상품들을 삭제할 수 있다")
+    void testDeleteProducts() {
+        repository.deleteAll();
+
+        var products =  repository.findAll();
+
+        assertThat(products.isEmpty(), is(true));
+    }
+
 }

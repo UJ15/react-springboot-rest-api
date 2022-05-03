@@ -41,7 +41,10 @@ public class ProductJdbcRepository implements ProductRepository {
 
     @Override
     public Product update(Product product) {
-        return null;
+        jdbcTemplate.update("UPDATE products SET product_name = :productName, category = :category, price = :price, description = :description, create_at = :createAt, update_at = :updateAt " +
+                "WHERE product_id = UUID_TO_BIN(:productId)", toParamMap(product));
+
+        return product;
     }
 
     @Override
@@ -79,7 +82,7 @@ public class ProductJdbcRepository implements ProductRepository {
 
     @Override
     public void deleteAll() {
-
+        jdbcTemplate.update("DELETE FROM products", Collections.emptyMap());
     }
 
     private static final RowMapper<Product> productRowMapper = (resultSet, i) -> {

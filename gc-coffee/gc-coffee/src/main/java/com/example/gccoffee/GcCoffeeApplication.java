@@ -8,6 +8,8 @@ public class GcCoffeeApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(GcCoffeeApplication.class, args);
+
+        System.out.println("hello");
     }
 
 }
